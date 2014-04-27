@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe WidgetsController do
-  let(:valid_attributes) { { "name" => "MyString" } }
-  let(:widget) { double('widget') }
-
   describe "GET index" do
     it "assigns all widgets as @widgets" do
       widgets = double('widgets')
@@ -12,6 +9,8 @@ describe WidgetsController do
       expect(assigns(:widgets)).to eq(widgets)
     end
   end
+
+  let(:widget) { double('widget') }
 
   describe "GET show" do
     it "assigns the requested widget as @widget" do
@@ -35,6 +34,8 @@ describe WidgetsController do
       expect(assigns(:widget)).to eq(widget)
     end
   end
+
+  let(:valid_attributes) { { "name" => "MyString" } }
 
   describe "POST create" do
     describe "with valid params" do
