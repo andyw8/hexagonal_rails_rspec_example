@@ -38,6 +38,11 @@ class WidgetsController < ApplicationController
     render :new
   end
 
+  def update_succeeded(widget)
+    @widget = widget
+    redirect_to widget
+  end
+
   private
     def set_widget
       @widget = Widget.find(params[:id])

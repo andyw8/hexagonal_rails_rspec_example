@@ -77,42 +77,26 @@ describe WidgetsController do
   end
 
   describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested widget" do
-        widget = Widget.create! valid_attributes
-        # is it better to pass widget or widget.id?
-        expect(WidgetUpdater).to receive(:update).with(controller, widget, { "name" => "MyString" })
-        put :update, {:id => widget.to_param, :widget => { "name" => "MyString" }}, valid_session
-      end
-
-      xit "assigns the requested widget as @widget" do
-        widget = Widget.create! valid_attributes
-        put :update, {:id => widget.to_param, :widget => valid_attributes}, valid_session
-        assigns(:widget).should eq(widget)
-      end
-
-      xit "redirects to the widget" do
-        widget = Widget.create! valid_attributes
-        put :update, {:id => widget.to_param, :widget => valid_attributes}, valid_session
-        response.should redirect_to(widget)
-      end
+    it "updates the requested widget via WidgetUpdater" do
+      widget = Widget.create! valid_attributes
+      # is it better to pass widget or widget.id?
+      expect(WidgetUpdater).to receive(:update).with(controller, widget, { "name" => "MyString" })
+      put :update, {:id => widget.to_param, :widget => { "name" => "MyString" }}, valid_session
     end
 
-    describe "with invalid params" do
-      xit "assigns the widget as @widget" do
-        widget = Widget.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Widget.any_instance.stub(:save).and_return(false)
-        put :update, {:id => widget.to_param, :widget => { "name" => "invalid value" }}, valid_session
+    describe ".updated_succeeded" do
+      let(:widget) { double('widget') }
+
+      it "assigns the requested widget as @widget" do
+        # spec fails with '@_response is nil' unless we stub :redirect_to
+        allow(controller).to receive(:redirect_to)
+        controller.update_succeeded(widget)
         assigns(:widget).should eq(widget)
       end
 
-      xit "re-renders the 'edit' template" do
-        widget = Widget.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Widget.any_instance.stub(:save).and_return(false)
-        put :update, {:id => widget.to_param, :widget => { "name" => "invalid value" }}, valid_session
-        response.should render_template("edit")
+      it "redirects to the widget" do
+        expect(controller).to receive(:redirect_to).with(widget)
+        controller.update_succeeded(widget)
       end
     end
   end
