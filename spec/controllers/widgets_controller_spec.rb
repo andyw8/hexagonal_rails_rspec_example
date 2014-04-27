@@ -18,7 +18,7 @@ describe WidgetsController do
     it "assigns the requested widget as @widget" do
       allow(Widget).to receive(:find).with("7").and_return(widget)
 
-      get :show, {:id => 7}
+      get :show, {id: 7}
 
       expect(assigns(:widget)).to eq(widget)
     end
@@ -36,7 +36,7 @@ describe WidgetsController do
     it "assigns the requested widget as @widget" do
       allow(Widget).to receive(:find).with("7").and_return(widget)
 
-      get :edit, {:id => 7}
+      get :edit, {id: 7}
 
       expect(assigns(:widget)).to eq(widget)
     end
@@ -51,7 +51,7 @@ describe WidgetsController do
 
       expect(WidgetCreator).to receive(:make).with(controller, valid_attributes)
 
-      post :create, {:widget => valid_attributes}
+      post :create, {widget: valid_attributes}
     end
 
     context "on success" do
@@ -88,7 +88,7 @@ describe WidgetsController do
 
       expect(WidgetUpdater).to receive(:update).with(controller, widget, { "name" => "MyString" })
 
-      put :update, {:id => 7, :widget => { "name" => "MyString" }}
+      put :update, {id: 7, widget: { "name" => "MyString" }}
     end
 
     context "on success" do
@@ -123,7 +123,7 @@ describe WidgetsController do
 
       expect(widget).to receive(:destroy)
 
-      delete :destroy, {:id => 7}
+      delete :destroy, {id: 7}
     end
 
     it "redirects to the widgets list" do
@@ -134,7 +134,7 @@ describe WidgetsController do
 
       expect(controller).to receive(:redirect_to).with(widgets_url)
 
-      delete :destroy, {:id => 7}
+      delete :destroy, {id: 7}
     end
   end
 end
