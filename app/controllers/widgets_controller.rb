@@ -16,13 +16,7 @@ class WidgetsController < ApplicationController
   end
 
   def create
-    @widget = Widget.new(widget_params)
-
-    if @widget.save
-      redirect_to @widget, notice: 'Widget was successfully created.'
-    else
-      render :new
-    end
+    @widget = WidgetCreator.make(self, widget_params)
   end
 
   def update

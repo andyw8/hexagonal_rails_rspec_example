@@ -1,0 +1,2 @@
+class WidgetCreator
+end
