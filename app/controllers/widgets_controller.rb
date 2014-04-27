@@ -20,11 +20,7 @@ class WidgetsController < ApplicationController
   end
 
   def update
-    if @widget.update(widget_params)
-      redirect_to @widget, notice: 'Widget was successfully updated.'
-    else
-      render :edit
-    end
+    WidgetUpdater.update(self, @widget, widget_params)
   end
 
   def destroy

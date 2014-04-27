@@ -1,0 +1,2 @@
+class WidgetUpdater
+end
