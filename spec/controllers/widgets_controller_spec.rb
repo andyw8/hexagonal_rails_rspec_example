@@ -38,6 +38,8 @@ describe WidgetsController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Widget via WidgetCreator" do
+        # spec fails with 'Missing template widgets/create' unless we stub :render
+        allow(controller).to receive(:render)
         expect(WidgetCreator).to receive(:make).with(controller, valid_attributes)
         post :create, {:widget => valid_attributes}, valid_session
       end
@@ -72,7 +74,8 @@ describe WidgetsController do
   describe "PUT update" do
     it "updates the requested widget via WidgetUpdater" do
       widget = Widget.create! valid_attributes
-      # is it better to pass widget or widget.id?
+      # spec fails with 'Missing template widgets/update' unless we stub :render
+      allow(controller).to receive(:render)
       expect(WidgetUpdater).to receive(:update).with(controller, widget, { "name" => "MyString" })
       put :update, {:id => widget.to_param, :widget => { "name" => "MyString" }}, valid_session
     end
