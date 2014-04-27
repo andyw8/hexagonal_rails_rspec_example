@@ -85,19 +85,19 @@ describe WidgetsController do
       end
     end
 
-    describe "with invalid params" do
-      xit "assigns a newly created but unsaved widget as @widget" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Widget.any_instance.stub(:save).and_return(false)
-        post :create, {:widget => { "name" => "invalid value" }}, valid_session
-        assigns(:widget).should be_a_new(Widget)
+    describe ".make_failed" do
+      let(:widget) { double('widget') }
+
+      it "assigns a newly created but unsaved widget as @widget" do
+        # spec fails with '@_response is nil' unless we stub :render
+        allow(controller).to receive(:render)
+        controller.make_failed(widget)
+        assigns(:widget).should eq(widget)
       end
 
-      xit "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Widget.any_instance.stub(:save).and_return(false)
-        post :create, {:widget => { "name" => "invalid value" }}, valid_session
-        response.should render_template("new")
+      it "re-renders the 'new' template" do
+        expect(controller).to receive(:render).with(:new)
+        controller.make_failed(widget)
       end
     end
   end
