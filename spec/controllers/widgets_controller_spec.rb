@@ -3,6 +3,7 @@ require 'spec_helper'
 describe WidgetsController do
   let(:valid_attributes) { { "name" => "MyString" } }
   let(:valid_session) { {} }
+  let(:widget) { double('widget') }
 
   describe "GET index" do
     it "assigns all widgets as @widgets" do
@@ -15,7 +16,6 @@ describe WidgetsController do
 
   describe "GET show" do
     it "assigns the requested widget as @widget" do
-      widget = double('widget')
       allow(Widget).to receive(:find).with("7").and_return(widget)
       get :show, {:id => 7}, valid_session
       assigns(:widget).should eq(widget)
@@ -58,8 +58,6 @@ describe WidgetsController do
     end
 
     describe ".make_failed" do
-      let(:widget) { double('widget') }
-
       it "assigns a newly created but unsaved widget as @widget" do
         # spec fails with '@_response is nil' unless we stub :render
         allow(controller).to receive(:render)
@@ -84,8 +82,6 @@ describe WidgetsController do
     end
 
     describe ".updated_succeeded" do
-      let(:widget) { double('widget') }
-
       it "redirects to the widget" do
         expect(controller).to receive(:redirect_to).with(widget)
         controller.update_succeeded(widget)
@@ -93,8 +89,6 @@ describe WidgetsController do
     end
 
     describe ".updated_failed" do
-      let(:widget) { double('widget') }
-
       it "assigns the requested widget as @widget" do
         # spec fails with '@_response is nil' unless we stub :redirect_to
         allow(controller).to receive(:render)
@@ -111,14 +105,12 @@ describe WidgetsController do
 
   describe "DELETE destroy" do
     it "destroys the requested widget" do
-      widget = double('widget')
       expect(Widget).to receive(:find).with("7").and_return(widget)
       expect(widget).to receive(:destroy)
       delete :destroy, {:id => 7}, valid_session
     end
 
     xit "redirects to the widgets list" do
-      widget = double('widget')
       allow(Widget).to receive(:find).with("7").and_return(widget)
       allow(widget).to receive(:destroy)
       expect(controller).to receive(:redirect).with(widgets_url)
