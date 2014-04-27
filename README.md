@@ -4,7 +4,7 @@
 
 This is my attempt at implementing some of the ideas from [Hexagonal Rails](https://www.youtube.com/watch?v=CGN4RFkhH2M).
 
-It includes full specs.
+It includes full specs, and I've tried to document the non-obvious things which I learned during the process of working on this.
 
 The files likely to be of interest are:
 
@@ -17,4 +17,7 @@ The files likely to be of interest are:
 * /spec/app/lib/widget_updater.rb
 * /app/lib/widget_updater.rb
 
+All the controller tests avoid hitting the database.
+
+One spec is currently marked as pending, as I was having trouble making it pass - the redirection after destroy. Any help with that is welcome.
 
