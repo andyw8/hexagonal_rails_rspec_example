@@ -30,7 +30,6 @@ describe WidgetsController do
 
   describe "GET edit" do
     it "assigns the requested widget as @widget" do
-      widget = double('widget')
       allow(Widget).to receive(:find).with("7").and_return(widget)
       get :edit, {:id => 7}
       expect(assigns(:widget)).to eq(widget)
@@ -48,8 +47,6 @@ describe WidgetsController do
     end
 
     describe ".make_succeeded" do
-      let(:widget) { double('widget') }
-
       it "redirects to the created widget" do
         expect(controller).to receive(:redirect_to).with(widget)
         controller.make_succeeded(widget)
