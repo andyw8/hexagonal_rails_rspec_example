@@ -28,6 +28,11 @@ class WidgetsController < ApplicationController
     redirect_to widgets_url
   end
 
+  def make_succeeded(widget)
+    @widget = widget
+    redirect_to widget
+  end
+
   private
     def set_widget
       @widget = Widget.find(params[:id])

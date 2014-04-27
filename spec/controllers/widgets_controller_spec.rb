@@ -67,16 +67,21 @@ describe WidgetsController do
         expect(WidgetCreator).to receive(:make).with(controller, valid_attributes)
         post :create, {:widget => valid_attributes}, valid_session
       end
+    end
 
-      xit "assigns a newly created widget as @widget" do
-        post :create, {:widget => valid_attributes}, valid_session
-        assigns(:widget).should be_a(Widget)
-        assigns(:widget).should be_persisted
+    describe ".make_succeeded" do
+      let(:widget) { double('widget') }
+
+      it "assigns a newly created widget as @widget" do
+        # spec fails with '@_response is nil' unless we stub :redirect_to
+        allow(controller).to receive(:redirect_to)
+        controller.make_succeeded(widget)
+        assigns(:widget).should eq(widget)
       end
 
-      xit "redirects to the created widget" do
-        post :create, {:widget => valid_attributes}, valid_session
-        response.should redirect_to(Widget.last)
+      it "redirects to the created widget" do
+        expect(controller).to receive(:redirect_to).with(widget)
+        controller.make_succeeded(widget)
       end
     end
 
