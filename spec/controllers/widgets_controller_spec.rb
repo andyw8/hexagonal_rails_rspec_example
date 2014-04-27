@@ -106,10 +106,12 @@ describe WidgetsController do
       delete :destroy, {:id => 7}
     end
 
-    xit "redirects to the widgets list" do
+    it "redirects to the widgets list" do
+      # spec fails with 'Missing template widgets/destroy' unless we stub :render
+      allow(controller).to receive(:render)
       allow(Widget).to receive(:find).with("7").and_return(widget)
       allow(widget).to receive(:destroy)
-      expect(controller).to receive(:redirect).with(widgets_url)
+      expect(controller).to receive(:redirect_to).with(widgets_url)
       delete :destroy, {:id => 7}
     end
   end

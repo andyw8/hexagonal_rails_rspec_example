@@ -19,5 +19,3 @@ The files likely to be of interest are:
 
 All the controller tests avoid hitting the database.
 
-One spec is currently marked as pending, as I was having trouble making it pass - the redirection after destroy. Any help with that is welcome.
-
