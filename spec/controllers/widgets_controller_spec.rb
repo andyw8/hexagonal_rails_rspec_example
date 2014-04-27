@@ -99,6 +99,22 @@ describe WidgetsController do
         controller.update_succeeded(widget)
       end
     end
+
+    describe ".updated_failed" do
+      let(:widget) { double('widget') }
+
+      it "assigns the requested widget as @widget" do
+        # spec fails with '@_response is nil' unless we stub :redirect_to
+        allow(controller).to receive(:render)
+        controller.update_failed(widget)
+        assigns(:widget).should eq(widget)
+      end
+
+      it "re-renders the 'edit' template" do
+        expect(controller).to receive(:render).with(:edit)
+        controller.update_failed(widget)
+      end
+    end
   end
 
   describe "DELETE destroy" do

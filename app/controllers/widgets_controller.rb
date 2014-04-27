@@ -43,6 +43,11 @@ class WidgetsController < ApplicationController
     redirect_to widget
   end
 
+  def update_failed(widget)
+    @widget = widget
+    render :edit
+  end
+
   private
     def set_widget
       @widget = Widget.find(params[:id])
