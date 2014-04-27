@@ -38,23 +38,21 @@ describe WidgetsController do
   let(:valid_attributes) { { "name" => "MyString" } }
 
   describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Widget via WidgetCreator" do
-        # spec fails with 'Missing template widgets/create' unless we stub :render
-        allow(controller).to receive(:render)
-        expect(WidgetCreator).to receive(:make).with(controller, valid_attributes)
-        post :create, {:widget => valid_attributes}
-      end
+    it "attempts to creates a new widget" do
+      # spec fails with 'Missing template widgets/create' unless we stub :render
+      allow(controller).to receive(:render)
+      expect(WidgetCreator).to receive(:make).with(controller, valid_attributes)
+      post :create, {:widget => valid_attributes}
     end
 
-    describe ".make_succeeded" do
+    context "on success" do
       it "redirects to the created widget" do
         expect(controller).to receive(:redirect_to).with(widget)
         controller.make_succeeded(widget)
       end
     end
 
-    describe ".make_failed" do
+    context "on failure" do
       it "assigns a newly created but unsaved widget as @widget" do
         # spec fails with '@_response is nil' unless we stub :render
         allow(controller).to receive(:render)
@@ -70,7 +68,7 @@ describe WidgetsController do
   end
 
   describe "PUT update" do
-    it "updates the requested widget via WidgetUpdater" do
+    it "attempts to update the widget" do
       allow(Widget).to receive(:find).with("7").and_return(widget)
       # spec fails with 'Missing template widgets/update' unless we stub :render
       allow(controller).to receive(:render)
@@ -78,14 +76,14 @@ describe WidgetsController do
       put :update, {:id => 7, :widget => { "name" => "MyString" }}
     end
 
-    describe ".updated_succeeded" do
+    context "on success" do
       it "redirects to the widget" do
         expect(controller).to receive(:redirect_to).with(widget)
         controller.update_succeeded(widget)
       end
     end
 
-    describe ".updated_failed" do
+    context "on failure" do
       it "assigns the requested widget as @widget" do
         # spec fails with '@_response is nil' unless we stub :redirect_to
         allow(controller).to receive(:render)
