@@ -16,7 +16,7 @@ class WidgetsController < ApplicationController
   end
 
   def create
-    @widget = WidgetCreator.make(self, widget_params)
+    WidgetCreator.make(self, widget_params)
   end
 
   def update
