@@ -9,7 +9,7 @@ describe WidgetsController do
       widgets = double('widgets')
       allow(Widget).to receive(:all).and_return(widgets)
       get :index, {}
-      assigns(:widgets).should eq(widgets)
+      expect(assigns(:widgets)).to eq(widgets)
     end
   end
 
@@ -17,14 +17,14 @@ describe WidgetsController do
     it "assigns the requested widget as @widget" do
       allow(Widget).to receive(:find).with("7").and_return(widget)
       get :show, {:id => 7}
-      assigns(:widget).should eq(widget)
+      expect(assigns(:widget)).to eq(widget)
     end
   end
 
   describe "GET new" do
     it "assigns a new widget as @widget" do
       get :new, {}
-      assigns(:widget).should be_a_new(Widget)
+      expect(assigns(:widget)).to be_a_new(Widget)
     end
   end
 
@@ -33,7 +33,7 @@ describe WidgetsController do
       widget = double('widget')
       allow(Widget).to receive(:find).with("7").and_return(widget)
       get :edit, {:id => 7}
-      assigns(:widget).should eq(widget)
+      expect(assigns(:widget)).to eq(widget)
     end
   end
 
@@ -61,7 +61,7 @@ describe WidgetsController do
         # spec fails with '@_response is nil' unless we stub :render
         allow(controller).to receive(:render)
         controller.make_failed(widget)
-        assigns(:widget).should eq(widget)
+        expect(assigns(:widget)).to eq(widget)
       end
 
       it "re-renders the 'new' template" do
@@ -92,7 +92,7 @@ describe WidgetsController do
         # spec fails with '@_response is nil' unless we stub :redirect_to
         allow(controller).to receive(:render)
         controller.update_failed(widget)
-        assigns(:widget).should eq(widget)
+        expect(assigns(:widget)).to eq(widget)
       end
 
       it "re-renders the 'edit' template" do
