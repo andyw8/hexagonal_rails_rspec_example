@@ -46,13 +46,6 @@ describe WidgetsController do
     describe ".make_succeeded" do
       let(:widget) { double('widget') }
 
-      it "assigns a newly created widget as @widget" do
-        # spec fails with '@_response is nil' unless we stub :redirect_to
-        allow(controller).to receive(:redirect_to)
-        controller.make_succeeded(widget)
-        assigns(:widget).should eq(widget)
-      end
-
       it "redirects to the created widget" do
         expect(controller).to receive(:redirect_to).with(widget)
         controller.make_succeeded(widget)
@@ -86,13 +79,6 @@ describe WidgetsController do
 
     describe ".updated_succeeded" do
       let(:widget) { double('widget') }
-
-      it "assigns the requested widget as @widget" do
-        # spec fails with '@_response is nil' unless we stub :redirect_to
-        allow(controller).to receive(:redirect_to)
-        controller.update_succeeded(widget)
-        assigns(:widget).should eq(widget)
-      end
 
       it "redirects to the widget" do
         expect(controller).to receive(:redirect_to).with(widget)

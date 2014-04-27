@@ -29,7 +29,6 @@ class WidgetsController < ApplicationController
   end
 
   def make_succeeded(widget)
-    @widget = widget
     redirect_to widget
   end
 
@@ -39,7 +38,6 @@ class WidgetsController < ApplicationController
   end
 
   def update_succeeded(widget)
-    @widget = widget
     redirect_to widget
   end
 
