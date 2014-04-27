@@ -6,16 +6,18 @@ describe WidgetsController do
 
   describe "GET index" do
     it "assigns all widgets as @widgets" do
-      widget = Widget.create! valid_attributes
+      widgets = double('widgets')
+      allow(Widget).to receive(:all).and_return(widgets)
       get :index, {}, valid_session
-      assigns(:widgets).should eq([widget])
+      assigns(:widgets).should eq(widgets)
     end
   end
 
   describe "GET show" do
     it "assigns the requested widget as @widget" do
-      widget = Widget.create! valid_attributes
-      get :show, {:id => widget.to_param}, valid_session
+      widget = double('widget')
+      allow(Widget).to receive(:find).with("7").and_return(widget)
+      get :show, {:id => 7}, valid_session
       assigns(:widget).should eq(widget)
     end
   end
@@ -29,8 +31,9 @@ describe WidgetsController do
 
   describe "GET edit" do
     it "assigns the requested widget as @widget" do
-      widget = Widget.create! valid_attributes
-      get :edit, {:id => widget.to_param}, valid_session
+      widget = double('widget')
+      allow(Widget).to receive(:find).with("7").and_return(widget)
+      get :edit, {:id => 7}, valid_session
       assigns(:widget).should eq(widget)
     end
   end
@@ -108,17 +111,18 @@ describe WidgetsController do
 
   describe "DELETE destroy" do
     it "destroys the requested widget" do
-      widget = Widget.create! valid_attributes
-      expect {
-        delete :destroy, {:id => widget.to_param}, valid_session
-      }.to change(Widget, :count).by(-1)
+      widget = double('widget')
+      expect(Widget).to receive(:find).with("7").and_return(widget)
+      expect(widget).to receive(:destroy)
+      delete :destroy, {:id => 7}, valid_session
     end
 
-    it "redirects to the widgets list" do
-      widget = Widget.create! valid_attributes
-      delete :destroy, {:id => widget.to_param}, valid_session
-      response.should redirect_to(widgets_url)
+    xit "redirects to the widgets list" do
+      widget = double('widget')
+      allow(Widget).to receive(:find).with("7").and_return(widget)
+      allow(widget).to receive(:destroy)
+      expect(controller).to receive(:redirect).with(widgets_url)
+      delete :destroy, {:id => 7}, valid_session
     end
   end
-
 end
