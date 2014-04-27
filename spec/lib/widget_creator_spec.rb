@@ -8,6 +8,7 @@ describe WidgetCreator do
     it "handles success" do
       widget = double('widget', save: true)
       allow(Widget).to receive(:new).and_return(widget)
+
       expect(listener).to receive(:make_succeeded).with(widget)
 
       described_class.make(listener, params)
@@ -16,6 +17,7 @@ describe WidgetCreator do
     it "handles failure" do
       widget = double('widget', save: false)
       allow(Widget).to receive(:new).and_return(widget)
+
       expect(listener).to receive(:make_failed).with(widget)
 
       described_class.make(listener, params)
