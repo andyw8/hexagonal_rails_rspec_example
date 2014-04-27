@@ -6,7 +6,7 @@ describe WidgetsController do
       widgets = double('widgets')
       allow(Widget).to receive(:all).and_return(widgets)
 
-      get :index, {}
+      get :index
 
       expect(assigns(:widgets)).to eq(widgets)
     end
@@ -26,7 +26,7 @@ describe WidgetsController do
 
   describe "GET new" do
     it "assigns a new widget as @widget" do
-      get :new, {}
+      get :new
 
       expect(assigns(:widget)).to be_a_new(Widget)
     end
