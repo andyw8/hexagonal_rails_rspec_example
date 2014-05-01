@@ -19,3 +19,6 @@ The files likely to be of interest are:
 
 All the controller tests avoid hitting the database.
 
+Discussions elsewhere:
+
+[Object on Rails: Improving Hexagonal Rails](https://groups.google.com/forum/#!searchin/objects-on-rails/hexagonal/objects-on-rails/yY4k86n_i9s/RZ7IDsPFVV0J)
